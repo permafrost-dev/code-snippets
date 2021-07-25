@@ -1,43 +1,41 @@
 {
-    "name": "vendor_slug/package_slug",
-    "description": ":package_description",
+    "name": "permafrost-dev/code-snippets",
+    "description": "Easily work with snippets of code",
     "keywords": [
-        ":vendor_name",
-        "package_slug"
+        "permafrost",
+        "code",
+        "snippets",
+        "code-snippets"
     ],
-    "homepage": "https://github.com/vendor_slug/package_slug",
+    "homepage": "https://github.com/permafrost-dev/code-snippets",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Patrick Organ",
+            "email": "patrick@permafrost.dev",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.0"
+        "php": "^7.4|^8.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.0",
         "phpunit/phpunit": "^9.5",
-        "spatie/ray": "^1.28",
-        "vimeo/psalm": "^4.8"
+        "spatie/phpunit-snapshot-assertions": "^4.2"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src"
+            "Permafrost\\CodeSnippets\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Permafrost\\CodeSnippets\\Tests\\": "tests"
         }
     },
     "scripts": {
-        "psalm": "vendor/bin/psalm",
         "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
-        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
+        "test-coverage": "vendor/bin/phpunit --coverage-html build/coverage"
     },
     "config": {
         "sort-packages": true
