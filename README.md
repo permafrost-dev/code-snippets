@@ -1,4 +1,4 @@
-# Easily work with snippets of code
+# code-snippets
 
 <p align="center">
     <img src="https://img.shields.io/github/v/release/permafrost-dev/code-snippets.svg?sort=semver&logo=github" alt="Package Version">
@@ -7,7 +7,7 @@
     <img src="https://codecov.io/gh/permafrost-dev/code-snippets/branch/main/graph/badge.svg" alt="code coverage">
 </p>
 
-Easily work with snippets of code from source code files.
+Easily create and work with code snippets from source code files of any type in PHP.
 
 _The original code this package is based on was borrowed from the [`spatie/backtrace`](https://github.com/spatie/backtrace) package._
 
