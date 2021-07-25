@@ -11,7 +11,7 @@
 19:
     selected: true
     lineNumber: 19
-    value: '            ->map(function($a) {'
+    value: '            ->map(function ($a) {'
     isSelected: true
 20:
     selected: true
