@@ -3,7 +3,7 @@
 <p align="center">
     <img src="https://img.shields.io/github/v/release/permafrost-dev/code-snippets.svg?sort=semver&logo=github" alt="Package Version">
     <img src="https://img.shields.io/github/license/permafrost-dev/code-snippets.svg?logo=opensourceinitiative&" alt="license">
-    <img src="https://github.com/permafrost-dev/code-snippets/actions/workflows/run-tests.yml/badge.svg?branch=main" alt="Test Run Status">
+    <img src="https://github.com/permafrost-dev/code-snippets/actions/workflows/run-tests.yml/badge.svg?branch=main&" alt="Test Run Status">
     <img src="https://codecov.io/gh/permafrost-dev/code-snippets/branch/main/graph/badge.svg" alt="code coverage">
 </p>
 
