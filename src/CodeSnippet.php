@@ -132,7 +132,7 @@ class CodeSnippet
             $firstLine = max($this->surroundingLines[0], 1);
             $lastLine = max($this->surroundingLines[count($this->surroundingLines) - 1], 1);
 
-            $startLine =  max($firstLine - $this->linesBefore, 1);
+            $startLine = max($firstLine - $this->linesBefore, 1);
             $endLine = max($lastLine + $this->linesAfter, 1);
 
             $this->snippetLineCount = ($endLine - $startLine) + 1;
