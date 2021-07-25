@@ -31,12 +31,18 @@ class CodeSnippetTest extends TestCase
     {
         $file = new File($this->testsPath('data/file2.txt'));
 
-        $snippet = (new CodeSnippet())
+        $snippet1 = (new CodeSnippet())
             ->surroundingLines(4, 10)
             ->snippetLineCount(3)
             ->fromFile($file);
 
-        $this->assertMatchesSnapshot($snippet->getCode());
+        $snippet2 = (new CodeSnippet())
+            ->surroundingLine(10)
+            ->snippetLineCount(3)
+            ->fromFile($file);
+
+        $this->assertMatchesSnapshot($snippet1->getCode());
+        $this->assertMatchesSnapshot($snippet2->getCode());
     }
 
     /** @test */
