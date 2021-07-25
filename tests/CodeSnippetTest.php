@@ -136,4 +136,17 @@ class CodeSnippetTest extends TestCase
         $this->assertEquals(3, $snippet->getLineNumberStart());
         $this->assertEquals(3, $snippet->getLineNumberEnd());
     }
+
+    /** @test */
+    public function it_ensures_the_entire_surrounding_lines_are_displayed()
+    {
+        $file = new File($this->testsPath('data/file3.php'));
+
+        $snippet = (new CodeSnippet())
+            ->surroundingLines(18, 23)
+            ->snippetLineCount(4)
+            ->fromFile($file);
+
+        $this->assertMatchesSnapshot($snippet->getLines());
+    }
 }

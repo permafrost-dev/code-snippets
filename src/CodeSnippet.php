@@ -182,6 +182,14 @@ class CodeSnippet
         $this->trimSnippetSize($bounds);
         $this->updateSnippetLineCount($bounds);
 
+//        $surroundedBounds = Bounds::createFromArray($this->surroundingLines);
+//
+//        if ($surroundedBounds->end > $bounds->end) {
+//            $bounds->end = $surroundedBounds->end + 1;
+//        }
+//
+//        $this->ensureBoundsAreWithinLimits($bounds, $totalNumberOfLineInFile);
+
         return $bounds;
     }
 
