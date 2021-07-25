@@ -21,6 +21,8 @@ composer require permafrost-dev/code-snippets
 
 ## Usage
 
+### Creating a snippet
+
 Use the `surroundingLine($num)` method to select the "target" line, which will be returned as the middle line of the snippet:
 
 ```php
@@ -55,6 +57,7 @@ $snippet = (new CodeSnippet())
     ->linesAfter(3)
     ->fromFile('/path/to/a/file.php');
 ```
+### Getting the snippet contents
 
 The `getLines()` method returns an array of `SnippetLine` instances.  The keys of the resulting array are the line numbers.
 
@@ -79,6 +82,33 @@ foreach($snippet->getLines() as $lineNum => $line) {
     echo $prefix . $line->lineNumber() . ' - ' . $line->value() . PHP_EOL;
 }
 ```
+
+### Snippet line count
+
+To determine the number of lines in the snippet, use the `getSnippetLineCount()` method:
+
+```php
+$snippet = (new CodeSnippet())
+    ->surroundingLines(4, 7)
+    ->linesBefore(3)
+    ->linesAfter(3)
+    ->fromFile('/path/to/a/file.php');
+    
+echo "Snippet line count: " . $snippet->getSnippetLineCount() . PHP_EOL;
+```
+
+You can also use `count()` on the result of the `getLines()` method:
+
+```php
+$snippet = (new CodeSnippet())
+    ->surroundingLines(4, 7)
+    ->linesBefore(3)
+    ->linesAfter(3)
+    ->fromFile('/path/to/a/file.php');
+    
+echo "Snippet line count: " . count($snippet->getLines()) . PHP_EOL;
+```
+
 
 ## Testing
 
