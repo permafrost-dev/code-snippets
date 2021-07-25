@@ -77,6 +77,8 @@ $snippet = (new CodeSnippet())
     ->fromFile('/path/to/a/file.php');
     
 foreach($snippet->getCode() as $lineNum => $line) {
+    // use ->isSelected() to determine if the line was selected using the
+    // surroundingLine() or surroundingLines() method
     $prefix = $line->isSelected() ? ' * ' : '   ';
     
     echo "{$prefix}{$line->lineNumber()} - {$line}" . PHP_EOL;
