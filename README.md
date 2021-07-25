@@ -36,7 +36,7 @@ use Permafrost\CodeSnippets\CodeSnippet;
 $snippet = (new CodeSnippet())
     ->surroundingLine(4)
     ->snippetLineCount(6)
-    ->fromFile('/path/to/a/file.php);
+    ->fromFile('/path/to/a/file.php');
 ```
 
 Use the `surroundingLines($first, $last)` method to select a range of "target" lines, which will be returned as the middle lines of the snippet:
@@ -47,7 +47,42 @@ use Permafrost\CodeSnippets\CodeSnippet;
 $snippet = (new CodeSnippet())
     ->surroundingLines(4, 7)
     ->snippetLineCount(6)
-    ->fromFile('/path/to/a/file.php);
+    ->fromFile('/path/to/a/file.php');
+```
+
+Use the `linesBefore()` and `linesAfter()` methods to specify the number of context lines to display before and after the "target" lines:
+
+```php
+use Permafrost\CodeSnippets\CodeSnippet;
+
+// the "target" line isn't displayed in the middle, but as the second line
+$snippet = (new CodeSnippet())
+    ->surroundingLine(4)
+    ->linesBefore(1)
+    ->linesAfter(3)
+    ->fromFile('/path/to/a/file.php');
+```
+
+The `getCode()` method returns an array of `SnippetLine` instances.  The keys of the resulting array are the line numbers.
+
+The `SnippetLine` instances may be cast to strings to display the value.
+
+```php
+use Permafrost\CodeSnippets\CodeSnippet;
+
+// the "target" line isn't displayed in the middle, but as the second line
+$snippet = (new CodeSnippet())
+    ->surroundingLine(4)
+    ->snippetLineCount(5)
+    ->fromFile('/path/to/a/file.php');
+    
+foreach($snippet->getCode() as $lineNum => $line) {
+    $prefix = $line->isSelected() ? ' * ' : '   ';
+    
+    echo "{$prefix}{$line->lineNumber()} - {$line}" . PHP_EOL;
+    // or
+    echo $prefix . $line->lineNumber() . ' - ' . $line->value() . PHP_EOL;
+}
 ```
 
 ## Testing
