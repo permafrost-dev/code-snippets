@@ -36,7 +36,7 @@ use Permafrost\CodeSnippets\CodeSnippet;
 $snippet = (new CodeSnippet())
     ->surroundingLine(4)
     ->snippetLineCount(6)
-    ->fromFile('/path/to/a/file.php);
+    ->fromFile('/path/to/a/file.php');
 ```
 
 Use the `surroundingLines($first, $last)` method to select a range of "target" lines, which will be returned as the middle lines of the snippet:
@@ -47,7 +47,7 @@ use Permafrost\CodeSnippets\CodeSnippet;
 $snippet = (new CodeSnippet())
     ->surroundingLines(4, 7)
     ->snippetLineCount(6)
-    ->fromFile('/path/to/a/file.php);
+    ->fromFile('/path/to/a/file.php');
 ```
 
 Use the `linesBefore()` and `linesAfter()` methods to specify the number of context lines to display before and after the "target" lines:
@@ -60,7 +60,7 @@ $snippet = (new CodeSnippet())
     ->surroundingLine(4)
     ->linesBefore(1)
     ->linesAfter(3)
-    ->fromFile('/path/to/a/file.php);
+    ->fromFile('/path/to/a/file.php');
 ```
 
 ## Testing
