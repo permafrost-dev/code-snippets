@@ -57,7 +57,7 @@ use Permafrost\CodeSnippets\CodeSnippet;
 
 // the "target" line isn't displayed in the middle, but as the second line
 $snippet = (new CodeSnippet())
-    ->surroundingLines(4)
+    ->surroundingLine(4)
     ->linesBefore(1)
     ->linesAfter(3)
     ->fromFile('/path/to/a/file.php);
