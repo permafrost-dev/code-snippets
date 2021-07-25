@@ -3,18 +3,20 @@
 namespace Permafrost\CodeSnippets\Tests;
 
 use Permafrost\CodeSnippets\File;
+use Permafrost\CodeSnippets\Tests\Traits\UsesTestPath;
 use PHPUnit\Framework\TestCase;
 use Spatie\Snapshots\MatchesSnapshots;
 
 class FileTest extends TestCase
 {
     use MatchesSnapshots;
+    use UsesTestPath;
 
     /** @test */
     public function it_checks_if_a_file_exists()
     {
-        $file1 = new File(tests_path('data/file1.php'));
-        $file2 = new File(tests_path('data/missing.php'));
+        $file1 = new File($this->testPath('data/file1.php'));
+        $file2 = new File($this->testPath('data/missing.php'));
 
         $this->assertTrue($file1->exists());
         $this->assertFalse($file2->exists());
@@ -23,15 +25,15 @@ class FileTest extends TestCase
     /** @test */
     public function it_gets_the_real_path_of_a_file()
     {
-        $file = new File(tests_path('data/file1.php'));
+        $file = new File($this->testPath('data/file1.php'));
 
-        $this->assertEquals(realpath(tests_path('data/file1.php')), $file->getRealPath());
+        $this->assertEquals(realpath($this->testPath('data/file1.php')), $file->getRealPath());
     }
 
     /** @test */
     public function it_counts_the_number_of_lines_in_a_file()
     {
-        $file = new File(tests_path('data/file2.txt'));
+        $file = new File($this->testPath('data/file2.txt'));
 
         $this->assertEquals(5, $file->numberOfLines());
     }
@@ -39,7 +41,7 @@ class FileTest extends TestCase
     /** @test */
     public function it_gets_the_first_line_from_a_file()
     {
-        $file = new File(tests_path('data/file2.txt'));
+        $file = new File($this->testPath('data/file2.txt'));
 
         $this->assertEquals('1' . PHP_EOL, $file->getLine());
     }
@@ -47,7 +49,7 @@ class FileTest extends TestCase
     /** @test */
     public function it_gets_a_specific_line_from_a_file()
     {
-        $file = new File(tests_path('data/file2.txt'));
+        $file = new File($this->testPath('data/file2.txt'));
 
         $this->assertEquals('2' . PHP_EOL, $file->getLine(2));
     }
@@ -55,7 +57,7 @@ class FileTest extends TestCase
     /** @test */
     public function it_gets_the_contents_of_a_file()
     {
-        $file = new File(tests_path('data/file2.txt'));
+        $file = new File($this->testPath('data/file2.txt'));
 
         $this->assertMatchesTextSnapshot($file->contents());
     }
