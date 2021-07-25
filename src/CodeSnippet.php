@@ -172,7 +172,9 @@ class CodeSnippet
         // snippetLineCount() was used
         if (! is_int($this->linesAfter) || ! is_int($this->linesBefore)) {
             [$startLine, $endLine] = $this->getBoundsMultiForSnippetLineCount(
-                $startLine, $endLine, $totalNumberOfLineInFile
+                $startLine,
+                $endLine,
+                $totalNumberOfLineInFile
             );
         }
 
