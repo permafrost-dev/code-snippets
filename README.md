@@ -50,6 +50,19 @@ $snippet = (new CodeSnippet())
     ->fromFile('/path/to/a/file.php);
 ```
 
+Use the `linesBefore()` and `linesAfter()` methods to specify the number of context lines to display before and after the "target" lines:
+
+```php
+use Permafrost\CodeSnippets\CodeSnippet;
+
+// the "target" line isn't displayed in the middle, but as the second line
+$snippet = (new CodeSnippet())
+    ->surroundingLines(4)
+    ->linesBefore(1)
+    ->linesAfter(3)
+    ->fromFile('/path/to/a/file.php);
+```
+
 ## Testing
 
 ```bash
