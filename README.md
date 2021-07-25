@@ -63,6 +63,28 @@ $snippet = (new CodeSnippet())
     ->fromFile('/path/to/a/file.php');
 ```
 
+The `getCode()` method returns an array of `SnippetLine` instances.  The keys of the resulting array are the line numbers.
+
+The `SnippetLine` instances may be cast to strings to display the value.
+
+```php
+use Permafrost\CodeSnippets\CodeSnippet;
+
+// the "target" line isn't displayed in the middle, but as the second line
+$snippet = (new CodeSnippet())
+    ->surroundingLine(4)
+    ->snippetLineCount(5)
+    ->fromFile('/path/to/a/file.php');
+    
+foreach($snippet->getCode() as $lineNum => $line) {
+    $prefix = $line->isSelected() ? ' * ' : '   ';
+    
+    echo "{$prefix}{$line->lineNumber()} - {$line}" . PHP_EOL;
+    // or
+    echo $prefix . $line->lineNumber() . ' - ' . $line->value() . PHP_EOL;
+}
+```
+
 ## Testing
 
 ```bash
