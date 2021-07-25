@@ -99,7 +99,9 @@ class CodeSnippet
 
             while ($currentLineNumber <= $endLineNumber) {
                 $value = rtrim(substr($line, 0, 250));
-                $code[$currentLineNumber] = SnippetLine::create($currentLineNumber, $value, $this->isSurroundedLineNumber($currentLineNumber));
+                $isSelected = $this->isSurroundedLineNumber($currentLineNumber);
+
+                $code[$currentLineNumber] = SnippetLine::create($currentLineNumber, $value, $isSelected);
 
                 $line = $file->getNextLine();
                 $currentLineNumber++;
