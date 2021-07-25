@@ -14,15 +14,30 @@ class CodeSnippet
     /** @var int */
     protected $surroundingLine = 1;
 
+    protected $surroundingLines = [];
+
     /** @var int */
     protected $snippetLineCount = 9;
+
+    /** @var int|null */
+    protected $linesBefore = null;
+
+    /** @var int|null */
+    protected $linesAfter = null;
 
     /** @var array|string[] */
     protected $code = [];
 
     public function surroundingLine(int $surroundingLine): self
     {
-        $this->surroundingLine = $surroundingLine;
+        $this->surroundingLines = [$surroundingLine];
+
+        return $this;
+    }
+
+    public function surroundingLines(int $surroundingLineFirst, int $surroundingLineLast): self
+    {
+        $this->surroundingLines = range($surroundingLineFirst, $surroundingLineLast);
 
         return $this;
     }
@@ -34,6 +49,25 @@ class CodeSnippet
         return $this;
     }
 
+    public function linesBefore(int $linesBefore): self
+    {
+        $this->linesBefore = $linesBefore;
+
+        return $this;
+    }
+
+    public function linesAfter(int $linesAfter): self
+    {
+        $this->linesAfter = $linesAfter;
+
+        return $this;
+    }
+
+    public function getSnippetLineCount(): int
+    {
+        return $this->snippetLineCount;
+    }
+
     public function fromFile(File $file): self
     {
         if (! $file->exists()) {
@@ -43,7 +77,7 @@ class CodeSnippet
         }
 
         try {
-            [$startLineNumber, $endLineNumber] = $this->getBounds($file->numberOfLines());
+            [$startLineNumber, $endLineNumber] = $this->getBoundsMulti($file->numberOfLines());
 
             $code = [];
 
@@ -52,7 +86,8 @@ class CodeSnippet
             $currentLineNumber = $startLineNumber;
 
             while ($currentLineNumber <= $endLineNumber) {
-                $code[$currentLineNumber] = rtrim(substr($line, 0, 250));
+                $value = rtrim(substr($line, 0, 250));
+                $code[$currentLineNumber] = SnippetLine::create($currentLineNumber, $value, $this->isSurroundedLineNumber($currentLineNumber));
 
                 $line = $file->getNextLine();
                 $currentLineNumber++;
@@ -71,20 +106,48 @@ class CodeSnippet
         return $this->code;
     }
 
-    public function getLineNumber(): int
+    public function getLineNumberStart(): int
     {
-        return $this->surroundingLine;
+        return $this->surroundingLines[0];
     }
 
-    protected function getBounds(int $totalNumberOfLineInFile): array
+    public function getLineNumberEnd(): int
     {
-        $startLine = max($this->surroundingLine - floor($this->snippetLineCount / 2), 1);
+        return $this->surroundingLines[count($this->surroundingLines) - 1];
+    }
 
-        $endLine = $startLine + ($this->snippetLineCount - 1);
+    protected function isSurroundedLineNumber(int $lineNumber): bool
+    {
+        return in_array($lineNumber, $this->surroundingLines, true);
+    }
+
+    protected function getBoundsMulti(int $totalNumberOfLineInFile): array
+    {
+        $firstLine = max($this->surroundingLines[0] - floor($this->snippetLineCount / 2), 1);
+        $lastLine = max($this->surroundingLines[count($this->surroundingLines) - 1] - floor($this->snippetLineCount / 2), 1);
+        $endLine = $lastLine + ($this->snippetLineCount - 1);
+        $startLine = $firstLine - ($this->snippetLineCount - 1);
+
+        if (is_int($this->linesAfter) && is_int($this->linesBefore)) {
+            $firstLine = max($this->surroundingLines[0], 1);
+            $lastLine = max($this->surroundingLines[count($this->surroundingLines) - 1], 1);
+
+            $startLine =  max($firstLine - $this->linesBefore, 1);
+            $endLine = max($lastLine + $this->linesAfter, 1);
+
+            $this->snippetLineCount = ($endLine - $startLine) + 1;
+        }
+
+        if ($startLine <= 0) {
+            $startLine = 1;
+        }
 
         if ($endLine > $totalNumberOfLineInFile) {
             $endLine = $totalNumberOfLineInFile;
-            $startLine = max($endLine - ($this->snippetLineCount - 1), 1);
+
+            if (count($this->surroundingLines) === 1) {
+                $startLine = max($endLine - ($this->snippetLineCount - 1), 1);
+            }
         }
 
         return [$startLine, $endLine];
