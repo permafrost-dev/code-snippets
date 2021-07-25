@@ -21,6 +21,8 @@ composer require permafrost-dev/code-snippets
 
 ## Usage
 
+_Note: Although the examples here reference php files, any file type can be used when creating a `CodeSnippet`._
+
 ### Creating a snippet
 
 Use the `surroundingLine($num)` method to select the "target" line, which will be returned as the middle line of the snippet:
