@@ -16,7 +16,7 @@ class MyClass
             ->count(5);
 
         collect([])
-            ->map(function($a) {
+            ->map(function ($a) {
                 return $a;
             })
             ->filter()
