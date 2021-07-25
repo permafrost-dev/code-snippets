@@ -68,8 +68,22 @@ class CodeSnippet
         return $this->snippetLineCount;
     }
 
-    public function fromFile(File $file): self
+    /**
+     * @param File|string $file
+     * @return static
+     */
+    public function fromFile($file): self
     {
+        if (is_string($file)) {
+            $file = new File($file);
+        }
+
+        if (! $file instanceof File) {
+            $this->code = [];
+
+            return $this;
+        }
+
         if (! $file->exists()) {
             $this->code = [];
 
