@@ -63,7 +63,7 @@ $snippet = (new CodeSnippet())
     ->fromFile('/path/to/a/file.php');
 ```
 
-The `getCode()` method returns an array of `SnippetLine` instances.  The keys of the resulting array are the line numbers.
+The `getLines()` method returns an array of `SnippetLine` instances.  The keys of the resulting array are the line numbers.
 
 The `SnippetLine` instances may be cast to strings to display the value.
 
@@ -76,7 +76,7 @@ $snippet = (new CodeSnippet())
     ->snippetLineCount(5)
     ->fromFile('/path/to/a/file.php');
     
-foreach($snippet->getCode() as $lineNum => $line) {
+foreach($snippet->getLines() as $lineNum => $line) {
     // use ->isSelected() to determine if the line was selected using the
     // surroundingLine() or surroundingLines() method
     $prefix = $line->isSelected() ? ' * ' : '   ';

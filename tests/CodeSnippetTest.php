@@ -23,7 +23,7 @@ class CodeSnippetTest extends TestCase
             ->snippetLineCount(3)
             ->fromFile($file);
 
-        $this->assertMatchesSnapshot($snippet->getCode());
+        $this->assertMatchesSnapshot($snippet->getLines());
     }
 
     /** @test */
@@ -41,8 +41,8 @@ class CodeSnippetTest extends TestCase
             ->snippetLineCount(3)
             ->fromFile($file);
 
-        $this->assertMatchesSnapshot($snippet1->getCode());
-        $this->assertMatchesSnapshot($snippet2->getCode());
+        $this->assertMatchesSnapshot($snippet1->getLines());
+        $this->assertMatchesSnapshot($snippet2->getLines());
     }
 
     /** @test */
@@ -57,7 +57,7 @@ class CodeSnippetTest extends TestCase
             ->fromFile($file);
 
         $this->assertEquals(3, $snippet->getSnippetLineCount());
-        $this->assertMatchesSnapshot($snippet->getCode());
+        $this->assertMatchesSnapshot($snippet->getLines());
     }
 
     /** @test */
@@ -72,7 +72,7 @@ class CodeSnippetTest extends TestCase
             ->fromFile($file);
 
         $this->assertEquals(3, $snippet->getSnippetLineCount());
-        $this->assertMatchesSnapshot($snippet->getCode());
+        $this->assertMatchesSnapshot($snippet->getLines());
     }
 
     /** @test */
@@ -86,7 +86,7 @@ class CodeSnippetTest extends TestCase
             ->fromFile($file);
 
         $this->assertEquals(4, $snippet->getSnippetLineCount());
-        $this->assertMatchesSnapshot($snippet->getCode());
+        $this->assertMatchesSnapshot($snippet->getLines());
     }
 
     /** @test */
@@ -99,7 +99,7 @@ class CodeSnippetTest extends TestCase
             ->snippetLineCount(3)
             ->fromFile($file);
 
-        $this->assertMatchesSnapshot($snippet->getCode());
+        $this->assertMatchesSnapshot($snippet->getLines());
     }
 
     /** @test */

@@ -11,9 +11,7 @@ use RuntimeException;
  */
 class CodeSnippet
 {
-    /** @var int */
-    protected $surroundingLine = 1;
-
+    /** @var array|int[] */
     protected $surroundingLines = [];
 
     /** @var int */
@@ -115,7 +113,10 @@ class CodeSnippet
         return $this;
     }
 
-    public function getCode(): array
+    /**
+     * @return array|SnippetLine[]
+     */
+    public function getLines(): array
     {
         return $this->code;
     }
