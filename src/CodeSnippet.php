@@ -125,12 +125,12 @@ class CodeSnippet
 
     public function getLineNumberStart(): int
     {
-        return $this->surroundingLines[0];
+        return $this->surroundingLines[0] ?? 0;
     }
 
     public function getLineNumberEnd(): int
     {
-        return $this->surroundingLines[count($this->surroundingLines) - 1];
+        return $this->surroundingLines[count($this->surroundingLines) - 1] ?? 0;
     }
 
     protected function isSurroundedLineNumber(int $lineNumber): bool
