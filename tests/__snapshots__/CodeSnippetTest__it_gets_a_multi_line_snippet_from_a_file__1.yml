@@ -1,15 +1,15 @@
 2:
     selected: true
     lineNumber: 2
-    value: '    ray(''12345'');'
+    value: ''
     isSelected: true
 3:
     selected: true
     lineNumber: 3
-    value: ''
+    value: '    ray(''12345'');'
     isSelected: true
 4:
     selected: false
     lineNumber: 4
-    value: '    printf("%s\n", strtolower(''TEST''));'
+    value: ''
     isSelected: false
