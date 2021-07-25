@@ -16,6 +16,8 @@
 
 Easily work with snippets of code from source code files.
 
+_The original code this package is based on was borrowed from the [`spatie/backtrace`](https://github.com/spatie/backtrace) package._
+
 ## Installation
 
 You can install the package via composer:
@@ -26,11 +28,24 @@ composer require permafrost-dev/code-snippets
 
 ## Usage
 
+Use the `surroundingLine($num)` method to select the "target" line, which will be returned as the middle line of the snippet:
+
 ```php
 use Permafrost\CodeSnippets\CodeSnippet;
 
 $snippet = (new CodeSnippet())
     ->surroundingLine(4)
+    ->snippetLineCount(6)
+    ->fromFile('/path/to/a/file.php);
+```
+
+Use the `surroundingLines($first, $last)` method to select a range of "target" lines, which will be returned as the middle lines of the snippet:
+
+```php
+use Permafrost\CodeSnippets\CodeSnippet;
+
+$snippet = (new CodeSnippet())
+    ->surroundingLines(4, 7)
     ->snippetLineCount(6)
     ->fromFile('/path/to/a/file.php);
 ```
