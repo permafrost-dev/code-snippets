@@ -16,7 +16,7 @@ class CodeSnippetTest extends TestCase
     /** @test */
     public function it_gets_a_snippet_from_a_file()
     {
-        $file = new File($this->getTestsPath('data/file2.txt'));
+        $file = new File($this->testsPath('data/file2.txt'));
 
         $snippet = (new CodeSnippet())
             ->surroundingLine(3)
@@ -29,7 +29,7 @@ class CodeSnippetTest extends TestCase
     /** @test */
     public function it_returns_no_code_when_given_a_file_that_does_not_exist()
     {
-        $file = new File($this->getTestsPath('data/missing.txt'));
+        $file = new File($this->testsPath('data/missing.txt'));
 
         $snippet = (new CodeSnippet())
             ->surroundingLine(3)
@@ -42,7 +42,7 @@ class CodeSnippetTest extends TestCase
     /** @test */
     public function it_gets_the_line_number()
     {
-        $file = new File($this->getTestsPath('data/file2.txt'));
+        $file = new File($this->testsPath('data/file2.txt'));
 
         $snippet = (new CodeSnippet())
             ->surroundingLine(3)
