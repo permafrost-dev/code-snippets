@@ -9,7 +9,12 @@
     value: '3'
     isSelected: true
 4:
-    selected: false
+    selected: true
     lineNumber: 4
     value: '4'
+    isSelected: true
+5:
+    selected: false
+    lineNumber: 5
+    value: '5'
     isSelected: false

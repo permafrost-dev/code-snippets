@@ -1,15 +1,15 @@
-2:
+1:
     selected: false
+    lineNumber: 1
+    value: '1'
+    isSelected: false
+2:
+    selected: true
     lineNumber: 2
     value: '2'
-    isSelected: false
+    isSelected: true
 3:
     selected: true
     lineNumber: 3
     value: '3'
     isSelected: true
-4:
-    selected: false
-    lineNumber: 4
-    value: '4'
-    isSelected: false

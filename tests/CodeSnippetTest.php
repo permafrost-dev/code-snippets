@@ -32,7 +32,7 @@ class CodeSnippetTest extends TestCase
         $file = new File($this->testsPath('data/file2.txt'));
 
         $snippet1 = (new CodeSnippet())
-            ->surroundingLines(4, 10)
+            ->surroundingLines(2, 3)
             ->snippetLineCount(3)
             ->fromFile($file);
 
@@ -41,8 +41,28 @@ class CodeSnippetTest extends TestCase
             ->snippetLineCount(3)
             ->fromFile($file);
 
+        $snippet3 = (new CodeSnippet())
+            ->surroundingLine(3)
+            ->snippetLineCount(3)
+            ->fromFile($file);
+
+        $snippet4 = (new CodeSnippet())
+            ->surroundingLine(3)
+            ->linesBefore(1)
+            ->linesAfter(1)
+            ->fromFile($file);
+
+        $snippet5 = (new CodeSnippet())
+            ->surroundingLines(3, 4)
+            ->linesBefore(1)
+            ->linesAfter(1)
+            ->fromFile($file);
+
         $this->assertMatchesSnapshot($snippet1->getLines());
         $this->assertMatchesSnapshot($snippet2->getLines());
+        $this->assertMatchesSnapshot($snippet3->getLines());
+        $this->assertMatchesSnapshot($snippet4->getLines());
+        $this->assertMatchesSnapshot($snippet5->getLines());
     }
 
     /** @test */
@@ -69,9 +89,10 @@ class CodeSnippetTest extends TestCase
             ->surroundingLines(2, 3)
             ->linesBefore(0)
             ->linesAfter(1)
+            //->snippetLineCount(3)
             ->fromFile($file);
 
-        $this->assertEquals(3, $snippet->getSnippetLineCount());
+        $this->assertCount(3, $snippet->getLines());
         $this->assertMatchesSnapshot($snippet->getLines());
     }
 
