@@ -27,6 +27,19 @@ class CodeSnippetTest extends TestCase
     }
 
     /** @test */
+    public function it_gets_a_snippet_from_a_file_and_constrains_the_snippet_size_to_the_number_of_file_lines()
+    {
+        $file = new File($this->testsPath('data/file2.txt'));
+
+        $snippet = (new CodeSnippet())
+            ->surroundingLines(4, 10)
+            ->snippetLineCount(3)
+            ->fromFile($file);
+
+        $this->assertMatchesSnapshot($snippet->getCode());
+    }
+
+    /** @test */
     public function it_gets_a_snippet_from_a_file_using_linesBefore_and_linesAfter()
     {
         $file = new File($this->testsPath('data/file2.txt'));
