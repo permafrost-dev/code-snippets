@@ -101,15 +101,12 @@ class CodeSnippet
         }
 
         try {
-            [$startLineNumber, $endLineNumber] = $this->getBoundsMulti($file->numberOfLines());
-
             $code = [];
+            $bounds = $this->getBoundsMulti($file->numberOfLines());
+            $line = $file->getLine($bounds->start);
+            $currentLineNumber = $bounds->start;
 
-            $line = $file->getLine($startLineNumber);
-
-            $currentLineNumber = $startLineNumber;
-
-            while ($currentLineNumber <= $endLineNumber) {
+            while ($currentLineNumber <= $bounds->end) {
                 $value = rtrim(substr($line, 0, 250));
                 $isSelected = $this->isSurroundedLineNumber($currentLineNumber);
 
@@ -150,7 +147,7 @@ class CodeSnippet
         return in_array($lineNumber, $this->surroundingLines, true);
     }
 
-    protected function getBounds(int $surroundingLine, int $totalNumberOfLineInFile): array
+    protected function getBounds(int $surroundingLine, int $totalNumberOfLineInFile): Bounds
     {
         $startLine = max($surroundingLine - floor($this->snippetLineCount / 2), 1);
 
@@ -161,87 +158,73 @@ class CodeSnippet
             $startLine = max($endLine - ($this->snippetLineCount - 1), 1);
         }
 
-        return [$startLine, $endLine];
+        return Bounds::createFromArray([$startLine, $endLine]);
     }
 
-    protected function getBoundsMulti(int $totalNumberOfLineInFile): array
+    protected function getBoundsMulti(int $totalNumberOfLineInFile): Bounds
     {
-        $startLine = $this->surroundingLines[0];
-        $endLine = $this->surroundingLines[count($this->surroundingLines) - 1];
+        $bounds = Bounds::createFromArray($this->surroundingLines);
 
         // snippetLineCount() was used
         if (! is_int($this->linesAfter) || ! is_int($this->linesBefore)) {
-            [$startLine, $endLine] = $this->getBoundsMultiForSnippetLineCount(
-                $startLine, $endLine, $totalNumberOfLineInFile
-            );
+            $this->getBoundsMultiForSnippetLineCount($bounds, $totalNumberOfLineInFile);
         }
 
         // linesBefore() and linesAfter() were used
         if (is_int($this->linesAfter) && is_int($this->linesBefore)) {
-            $startLine -= $this->linesBefore;
-            $endLine += $this->linesAfter;
+            $bounds->start -= $this->linesBefore;
+            $bounds->end += $this->linesAfter;
 
-            $this->updateSnippetLineCount($startLine, $endLine);
+            $this->updateSnippetLineCount($bounds);
         }
 
-        [$startLine, $endLine] = $this->ensureBoundsAreWithinLimits($startLine, $endLine, $totalNumberOfLineInFile);
-        [$startLine, $endLine] = $this->trimSnippetSize($startLine, $endLine);
+        $this->ensureBoundsAreWithinLimits($bounds, $totalNumberOfLineInFile);
+        $this->trimSnippetSize($bounds);
+        $this->updateSnippetLineCount($bounds);
 
-        $this->updateSnippetLineCount($startLine, $endLine);
-
-        return [$startLine, $endLine];
+        return $bounds;
     }
 
-    protected function getBoundsMultiForSnippetLineCount(int $firstLineNum, int $lastLineNum, int $totalNumberOfLineInFile): array
+    protected function getBoundsMultiForSnippetLineCount(Bounds $bounds, int $totalNumberOfLineInFile): void
     {
-        $startBounds = $this->getBounds($firstLineNum, $totalNumberOfLineInFile);
-        $endBounds = $this->getBounds($lastLineNum, $totalNumberOfLineInFile);
+        $startBounds = $this->getBounds($bounds->start, $totalNumberOfLineInFile);
+        $endBounds = $this->getBounds($bounds->end, $totalNumberOfLineInFile);
 
-        $bounds = array_merge($startBounds, $endBounds);
-        sort($bounds, SORT_NUMERIC);
-
-        $startLine = $bounds[0];
-        $endLine = $bounds[count($bounds) - 1];
-
-        return [$startLine, $endLine];
+        $bounds->copy($startBounds->mergeWith($endBounds));
     }
 
-    protected function updateSnippetLineCount(int $startLine, int $endLine): void
+    protected function updateSnippetLineCount(Bounds $bounds): void
     {
-        $this->snippetLineCount = ($endLine - $startLine) + 1;
+        $this->snippetLineCount = ($bounds->end - $bounds->start) + 1;
     }
 
-    protected function trimSnippetSize(int $startLine, int $endLine): array
+    protected function trimSnippetSize(Bounds $bounds): void
     {
-        if (count(range($startLine, $endLine)) > $this->snippetLineCount) {
-            if (! in_array($endLine, $this->surroundingLines, true)) {
-                $endLine--;
+        if (count(range($bounds->start, $bounds->end)) > $this->snippetLineCount) {
+            if (! in_array($bounds->end, $this->surroundingLines, true)) {
+                $bounds->end--;
             }
         }
 
-        if (count(range($startLine, $endLine)) > $this->snippetLineCount) {
-            if (! in_array($startLine, $this->surroundingLines, true)) {
-                $startLine++;
+        if (count(range($bounds->start, $bounds->end)) > $this->snippetLineCount) {
+            if (! in_array($bounds->start, $this->surroundingLines, true)) {
+                $bounds->start++;
             }
         }
-
-        return [$startLine, $endLine];
     }
 
-    protected function ensureBoundsAreWithinLimits(int $startLine, int $endLine, int $totalNumberOfLineInFile): array
+    protected function ensureBoundsAreWithinLimits(Bounds $bounds, int $totalNumberOfLineInFile): void
     {
-        if ($startLine <= 0) {
-            $startLine = 1;
+        if ($bounds->start <= 0) {
+            $bounds->start = 1;
         }
 
-        if ($endLine > $totalNumberOfLineInFile) {
-            $endLine = $totalNumberOfLineInFile;
+        if ($bounds->end > $totalNumberOfLineInFile) {
+            $bounds->end = $totalNumberOfLineInFile;
 
             if (count($this->surroundingLines) === 1) {
-                $startLine = max($endLine - ($this->snippetLineCount - 1), 1);
+                $bounds->start = max($bounds->end - ($this->snippetLineCount - 1), 1);
             }
         }
-
-        return [$startLine, $endLine];
     }
 }
