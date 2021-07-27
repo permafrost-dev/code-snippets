@@ -147,6 +147,11 @@ class CodeSnippet
         return array_keys($this->getLines());
     }
 
+    public function getSelectedBounds(): Bounds
+    {
+        return Bounds::create($this->getLineNumberStart(), $this->getLineNumberEnd());
+    }
+
     public function toString()
     {
         $result = '';
