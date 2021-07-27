@@ -48,7 +48,7 @@ class Bounds
         return $this;
     }
 
-    public function count(): int
+    public function size(): int
     {
         return count(range($this->start, $this->end));
     }
