@@ -111,6 +111,12 @@ $snippet = (new CodeSnippet())
 echo "Snippet line count: " . count($snippet->getLines()) . PHP_EOL;
 ```
 
+To return an array containing the line numbers for the snippet, use `getLineNumbers()`:
+
+```php
+print_r($snippet->getLineNumbers());
+```
+
 ### Returning the snippet as a string
 
 Return the contents of the snippet as as string using the `toString()` method or by casting the snippet to a string directly:
