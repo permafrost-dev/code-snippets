@@ -111,6 +111,19 @@ $snippet = (new CodeSnippet())
 echo "Snippet line count: " . count($snippet->getLines()) . PHP_EOL;
 ```
 
+### Returning the snippet as a string
+
+Return the contents of the snippet as as string using the `toString()` method or by casting the snippet to a string directly:
+
+```php
+$snippet = (new CodeSnippet())
+    ->surroundingLines(4, 7)
+    ->linesBefore(3)
+    ->linesAfter(3)
+    ->fromFile('/path/to/a/file.php');
+    
+echo "Snippet: \n" . $snippet->toString() . PHP_EOL;
+```
 
 ## Testing
 
