@@ -142,6 +142,16 @@ class CodeSnippet
         return $this->surroundingLines[count($this->surroundingLines) - 1] ?? 0;
     }
 
+    public function getLineNumbers(): array
+    {
+        return array_keys($this->getLines());
+    }
+
+    public function getSelectedBounds(): Bounds
+    {
+        return Bounds::create($this->getLineNumberStart(), $this->getLineNumberEnd());
+    }
+
     public function toString()
     {
         $result = '';

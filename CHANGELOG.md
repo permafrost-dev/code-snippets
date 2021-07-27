@@ -2,7 +2,13 @@
 
 All notable changes to `code-snippets` will be documented in this file.
 
-## 1.1.0 - 2021-07-25
+## 1.2.0 - 2021-07-27
+
+- add `getLineNumbers()` method
+- add `getSelectedBounds()` method
+- add `Bounds::size()` method
+
+## 1.1.0 - 2021-07-27
 
 - add `toString()` and `__toString()` methods
 
