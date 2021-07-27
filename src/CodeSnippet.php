@@ -146,7 +146,7 @@ class CodeSnippet
     {
         $result = '';
 
-        foreach($this->getLines() as $line) {
+        foreach ($this->getLines() as $line) {
             $result .= $line->value() . PHP_EOL;
         }
 
