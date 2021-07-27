@@ -1,0 +1,8 @@
+        /**
+        @var Ray $ray
+         */
+        $ray = ray()->text('hello world')
+            ->blue()
+            ->large();
+
+        Ray
