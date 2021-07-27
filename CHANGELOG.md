@@ -2,6 +2,10 @@
 
 All notable changes to `code-snippets` will be documented in this file.
 
+## 1.1.0 - 2021-07-25
+
+- add `toString()` and `__toString()` methods
+
 ## 1.0.2 - 2021-07-25
 
 - fix minor bugs, refactor line boundary calculations
