@@ -142,6 +142,22 @@ class CodeSnippet
         return $this->surroundingLines[count($this->surroundingLines) - 1] ?? 0;
     }
 
+    public function toString()
+    {
+        $result = '';
+
+        foreach($this->getLines() as $line) {
+            $result .= $line->value() . PHP_EOL;
+        }
+
+        return $result;
+    }
+
+    public function __toString()
+    {
+        return $this->toString();
+    }
+
     protected function isSurroundedLineNumber(int $lineNumber): bool
     {
         return in_array($lineNumber, $this->surroundingLines, true);
