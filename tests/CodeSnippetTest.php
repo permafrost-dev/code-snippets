@@ -171,4 +171,16 @@ class CodeSnippetTest extends TestCase
 
         $this->assertMatchesSnapshot((string)$snippet);
     }
+
+    /** @test */
+    public function it_returns_the_line_numbers()
+    {
+        $snippet = (new CodeSnippet())
+            ->surroundingLines(10, 12)
+            ->snippetLineCount(8)
+            ->fromFile($this->testsPath('data/file3.php'));
+
+        $this->assertCount(8, $snippet->getLineNumbers());
+        $this->assertMatchesSnapshot($snippet->getLineNumbers());
+    }
 }
