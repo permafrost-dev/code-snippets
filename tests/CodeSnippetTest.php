@@ -149,4 +149,26 @@ class CodeSnippetTest extends TestCase
 
         $this->assertMatchesSnapshot($snippet->getLines());
     }
+
+    /** @test */
+    public function it_returns_the_snippet_as_a_string()
+    {
+        $snippet = (new CodeSnippet())
+            ->surroundingLines(10, 12)
+            ->snippetLineCount(8)
+            ->fromFile($this->testsPath('data/file3.php'));
+
+        $this->assertMatchesSnapshot($snippet->toString());
+    }
+
+    /** @test */
+    public function it_returns_a_string_when_the_snippet_is_cast_to_a_string()
+    {
+        $snippet = (new CodeSnippet())
+            ->surroundingLines(10, 12)
+            ->snippetLineCount(8)
+            ->fromFile($this->testsPath('data/file3.php'));
+
+        $this->assertMatchesSnapshot((string)$snippet);
+    }
 }
