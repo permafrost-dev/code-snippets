@@ -39,8 +39,6 @@ $snippet = (new CodeSnippet())
 Use the `surroundingLines($first, $last)` method to select a range of "target" lines, which will be returned as the middle lines of the snippet:
 
 ```php
-use Permafrost\CodeSnippets\CodeSnippet;
-
 $snippet = (new CodeSnippet())
     ->surroundingLines(4, 7)
     ->snippetLineCount(6)
@@ -50,8 +48,6 @@ $snippet = (new CodeSnippet())
 Use the `linesBefore()` and `linesAfter()` methods to specify the number of context lines to display before and after the "target" lines:
 
 ```php
-use Permafrost\CodeSnippets\CodeSnippet;
-
 // the "target" line isn't displayed in the middle, but as the second line
 $snippet = (new CodeSnippet())
     ->surroundingLine(4)
@@ -59,28 +55,24 @@ $snippet = (new CodeSnippet())
     ->linesAfter(3)
     ->fromFile('/path/to/a/file.php');
 ```
+
 ### Getting the snippet contents
 
 The `getLines()` method returns an array of `SnippetLine` instances.  The keys of the resulting array are the line numbers.
 
-The `SnippetLine` instances may be cast to strings to display the value.
+The `SnippetLine` instances may be cast to strings to display the value.  When working with `SnippetLine` instances, use `isSelected()` to determine if the line was selected using either the `surroundingLine()` or `surroundingLines()` method on the `CodeSnippet` instance.
+
+To get the value of a `SnippetLine`, use the `value()` method or cast the object to a string.
 
 ```php
-use Permafrost\CodeSnippets\CodeSnippet;
-
-// the "target" line isn't displayed in the middle, but as the second line
 $snippet = (new CodeSnippet())
     ->surroundingLine(4)
     ->snippetLineCount(5)
     ->fromFile('/path/to/a/file.php');
     
 foreach($snippet->getLines() as $lineNum => $line) {
-    // use ->isSelected() to determine if the line was selected using the
-    // surroundingLine() or surroundingLines() method
     $prefix = $line->isSelected() ? ' * ' : '   ';
     
-    echo "{$prefix}{$line->lineNumber()} - {$line}" . PHP_EOL;
-    // or
     echo $prefix . $line->lineNumber() . ' - ' . $line->value() . PHP_EOL;
 }
 ```
