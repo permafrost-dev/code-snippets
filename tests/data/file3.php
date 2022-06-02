@@ -11,8 +11,7 @@ class MyClass
             ->blue()
             ->large();
 
-        Ray
-            ::rateLimiter()
+        Ray::rateLimiter()
             ->count(5);
 
         collect([])
