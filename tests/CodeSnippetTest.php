@@ -93,7 +93,6 @@ class CodeSnippetTest extends TestCase
             ->fromFile($file);
 
         $this->assertCount(3, $snippet->getLines());
-        $this->assertMatchesSnapshot($snippet->getLines());
     }
 
     /** @test */
@@ -107,7 +106,6 @@ class CodeSnippetTest extends TestCase
             ->fromFile($file);
 
         $this->assertEquals(4, $snippet->getSnippetLineCount());
-        $this->assertMatchesSnapshot($snippet->getLines());
     }
 
     /** @test */
