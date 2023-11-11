@@ -1,6 +1,10 @@
 name: Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   test:
@@ -35,7 +39,7 @@ jobs:
 
       - name: Execute tests
         run: ./vendor/bin/phpunit --coverage-clover clover.xml -d --without-creating-snapshots
-        
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
