@@ -1,35 +1,35 @@
 17:
     selected: false
     lineNumber: 17
-    value: ''
+    value: '        collect([])'
     isSelected: false
 18:
     selected: true
     lineNumber: 18
-    value: '        collect([])'
+    value: '            ->map(function ($a) {'
     isSelected: true
 19:
     selected: true
     lineNumber: 19
-    value: '            ->map(function ($a) {'
+    value: '                return $a;'
     isSelected: true
 20:
     selected: true
     lineNumber: 20
-    value: '                return $a;'
+    value: '            })'
     isSelected: true
 21:
     selected: true
     lineNumber: 21
-    value: '            })'
+    value: '            ->filter()'
     isSelected: true
 22:
     selected: true
     lineNumber: 22
-    value: '            ->filter()'
+    value: '            ->ray();'
     isSelected: true
 23:
     selected: true
     lineNumber: 23
-    value: '            ->ray();'
+    value: '    }'
     isSelected: true

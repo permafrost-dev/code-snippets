@@ -6,7 +6,7 @@
 3:
     selected: true
     lineNumber: 3
-    value: '    ray(''12345'');'
+    value: "ray('12345');"
     isSelected: true
 4:
     selected: false
